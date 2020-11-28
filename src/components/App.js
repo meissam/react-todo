@@ -67,7 +67,6 @@ class App extends Component {
     const items = this.state.items;
     const selectedTags = this.state.filterTags;
 
-    console.log(selectedTags);
     const filterdItems = items.filter((item) =>
       selectedTags.every((i) => item.tags.includes(i))
     );
@@ -87,6 +86,12 @@ class App extends Component {
     }));
   };
 
+  handleRemoveItem = (item) => {
+    this.setState((prevState)=>({
+        items : prevState.items.filter((option) => item !== option.id)
+    }))
+  }
+
   render() {
     const items = this.handleFilter();
     const tags = this.handleGettingAllTags();
@@ -94,7 +99,12 @@ class App extends Component {
       <>
         <Layout
           header={<Header />}
-          content={<Content items={items} handleAddItem={this.handleAddItem} />}
+          content={
+          <Content items={items} 
+          handleAddItem={this.handleAddItem}
+          handleRemoveItem={this.handleRemoveItem}
+          
+          />}
           sidebar={
             <Sidebar
               tags={tags}

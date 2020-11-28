@@ -3,11 +3,11 @@ import Item from './Item';
 
 
 const Items = (props) => {
-    const {items} = props
+    const {items, handleRemoveItem} = props
     return(
         <ul className="todo-list list-unstyled">
             {items.map((item) => (
-               <Item key={item.id} data={item} />
+               <Item key={item.id} data={item} handleRemoveItem={handleRemoveItem} />
             ))}
           </ul>
     )

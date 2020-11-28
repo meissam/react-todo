@@ -1,26 +1,33 @@
-import React from 'react';
+import React from "react";
 import { Card } from "react-bootstrap";
 
-
 const Item = (props) => {
-    const {data} = props;
-    return(
+  const { data } = props;
 
-     <li>
-        <Card>
+  return (
+    <li>
+      <Card>
         <Card.Body>
-            <Card.Title> {data.title}</Card.Title>
-                <ul className="list-inline">
-                    {
-                        data.tags.map((tag, index)=> <li key={index} className="list-inline-item">#{tag}</li>)
-                    }
-                </ul>
+          <Card.Title>
+            {data.id} - {data.title}
+          </Card.Title>
+          <ul className="list-inline">
+            {data.tags.map((tag, index) => (
+              <li key={index} className="list-inline-item">
+                #{tag}
+              </li>
+            ))}
+          </ul>
+          <button
+            onClick={(e) => props.handleRemoveItem(data.id)}
+            className="btn btn-danger"
+          >
+            X
+          </button>
         </Card.Body>
-        </Card>
+      </Card>
     </li>
-
-    )
-
-}
+  );
+};
 
 export default Item;
