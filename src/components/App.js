@@ -75,22 +75,24 @@ class App extends Component {
   };
 
   handleAddItem = (item) => {
-
     this.setState((prevState) => ({
-      items: [...prevState.items, {
-        id: 5,
-        title: item,
-        completed: false,
-        tags: ["work", "meeting"],
-      }],
+      items: [
+        ...prevState.items,
+        {
+          id: 5,
+          title: item,
+          completed: false,
+          tags: ["work", "meeting"],
+        },
+      ],
     }));
   };
 
   handleRemoveItem = (item) => {
-    this.setState((prevState)=>({
-        items : prevState.items.filter((option) => item !== option.id)
-    }))
-  }
+    this.setState((prevState) => ({
+      items: prevState.items.filter((option) => item !== option.id),
+    }));
+  };
 
   render() {
     const items = this.handleFilter();
@@ -98,13 +100,10 @@ class App extends Component {
     return (
       <>
         <Layout
-          header={<Header />}
+          header={<Header handleAddItem={this.handleAddItem} />}
           content={
-          <Content items={items} 
-          handleAddItem={this.handleAddItem}
-          handleRemoveItem={this.handleRemoveItem}
-          
-          />}
+            <Content items={items} handleRemoveItem={this.handleRemoveItem} />
+          }
           sidebar={
             <Sidebar
               tags={tags}

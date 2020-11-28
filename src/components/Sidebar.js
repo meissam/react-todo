@@ -1,6 +1,6 @@
 import React from "react";
 
-const Header = (props) => {
+const Sidebar = (props) => {
   const { tags, handleAddFilterTag, handleRemoveFilterTag, activeFilters } = props;
   return (
     <>
@@ -21,4 +21,4 @@ const Header = (props) => {
     </>
   );
 };
-export default Header;
+export default Sidebar;
