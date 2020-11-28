@@ -9,12 +9,13 @@ const Item = (props) => {
       <Card>
         <Card.Body>
           <Card.Title>
-            {data.id} - {data.title}
+            {data.id} - {data.title} - {data.lastModified}
           </Card.Title>
           <ul className="list-inline">
             {data.tags.map((tag, index) => (
               <li key={index} className="list-inline-item">
                 #{tag}
+               
               </li>
             ))}
           </ul>
