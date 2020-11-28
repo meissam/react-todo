@@ -11,32 +11,7 @@ class App extends Component {
   state = {
     error: null,
     filterTags: [],
-    items: [
-      {
-        id: 1,
-        title: "Buy Car",
-        completed: false,
-        tags: ["home", "buy"],
-      },
-      {
-        id: 2,
-        title: "Go to meeting with Jack",
-        completed: false,
-        tags: ["work", "meeting"],
-      },
-      {
-        id: 3,
-        title: "Clean the House",
-        completed: false,
-        tags: ["home", "affairs"],
-      },
-      {
-        id: 4,
-        title: "meeting with David",
-        completed: false,
-        tags: ["work", "meeting"],
-      },
-    ],
+    items: [],
   };
 
   handleGettingAllTags = () => {
@@ -85,6 +60,32 @@ class App extends Component {
       items: prevState.items.filter((option) => item !== option.id),
     }));
   };
+
+
+
+  componentDidMount() {
+    try {
+      const json = localStorage.getItem('items');
+      const items = JSON.parse(json);
+
+      if (items) {
+        this.setState(() => ({ items }));
+      }
+    } catch (e) {
+      // Do nothing at all
+    }
+  }
+  
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.items.length !== this.state.items.length) {
+      const json = JSON.stringify(this.state.items);
+      localStorage.setItem('items', json);
+    }
+  }
+  componentWillUnmount() {
+    console.log('componentWillUnmount');
+  }
+
 
   render() {
     const items = this.handleFilter();
