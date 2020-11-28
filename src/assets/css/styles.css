@@ -1,0 +1,23 @@
+
+@import 'icomoon.css';
+
+body {
+  height: 100vh;
+}
+#main-header {
+  background-color: #2f4858;
+  color: #fff;
+  padding: 15px 0;
+}
+
+#main-body {
+  padding: 15px 0;
+}
+
+.todo-list li {
+    margin-bottom: 15px;
+}
+.todo-list .completed {
+  color: #999;
+  text-decoration: line-through;
+}

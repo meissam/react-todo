@@ -1,9 +1,10 @@
 import React from 'react'
 
-export default function Header() {
+ const Header = () => {
     return (
-        <div>
-            Here is Header
-        </div>
+        <>
+            <div id="main-logo">LOGO</div>
+       </>
     )
 }
+export default Header;
