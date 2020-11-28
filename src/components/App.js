@@ -76,15 +76,7 @@ class App extends Component {
 
   handleAddItem = (item) => {
     this.setState((prevState) => ({
-      items: [
-        ...prevState.items,
-        {
-          id: 5,
-          title: item,
-          completed: false,
-          tags: ["work", "meeting"],
-        },
-      ],
+      items: [...prevState.items, item],
     }));
   };
 

@@ -1,15 +1,26 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
+import { v1 as uuid } from "uuid";
+import dayjs from "dayjs";
 
 class Header extends Component {
   state = {
     show: false,
   };
 
+
   handleAddOption = (e) => {
     e.preventDefault();
-    const item = e.target.elements.itemfield.value.trim();
+    const item = {
+      id: uuid(),
+      title: e.target.elements.itemfield.value.trim(),
+      completed: false,
+      tags: e.target.elements.itemTags.value.trim().split(","),
+      lastModified: dayjs().toString(),
+    };
+
     const error = this.props.handleAddItem(item);
+
   };
 
   handleClose = () => {
@@ -22,11 +33,11 @@ class Header extends Component {
   render() {
     return (
       <>
-        <div class="row">
-          <div class="col">
+        <div className="row">
+          <div className="col">
             <div id="main-logo">LOGO</div>
           </div>
-          <div class="col">
+          <div className="col">
             <button
               className="btn btn-secondary float-right"
               onClick={this.handleShow}
@@ -41,21 +52,29 @@ class Header extends Component {
             <Modal.Title>Add a New Item</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form className="form-inline" onSubmit={this.handleAddOption}>
+            <form  onSubmit={this.handleAddOption}>
               <input
                 type="text"
                 name="itemfield"
                 defaultValue=""
                 placeholder="Attend Meeting with Jack"
-                className="flex-fill mr-2 form-control"
+                className="form-control mb-3"
               />
+
+            <input
+                type="text"
+                name="itemTags"
+                defaultValue=""
+                placeholder="work, meeting"
+                className="form-control  mb-3"
+            />
 
               <Button
                 variant="primary"
                 type="submit"
                 onClick={this.handleClose}
               >
-               Add Item
+                Add Item
               </Button>
             </form>
           </Modal.Body>
