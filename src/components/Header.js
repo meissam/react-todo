@@ -1,33 +1,31 @@
 import React, { Component } from "react";
 import { Modal, Button } from "react-bootstrap";
-import { v1 as uuid } from "uuid";
-import dayjs from "dayjs";
+import {connect} from 'react-redux'
+
+import { addNote } from '../actions/notes';
 
 class Header extends Component {
   state = {
-    show: false,
+    showModal: false,
   };
 
 
   handleAddOption = (e) => {
     e.preventDefault();
     const item = {
-      id: uuid(),
       title: e.target.elements.itemfield.value.trim(),
-      completed: false,
       tags: e.target.elements.itemTags.value.trim().split(","),
-      lastModified: dayjs().toString(),
     };
 
-    const error = this.props.handleAddItem(item);
+   this.props.dispatch(addNote(item));
 
   };
 
-  handleClose = () => {
-    this.setState((prevState) => ({ show: false }));
+  handleCloseModal = () => {
+    this.setState(() => ({ showModal: false }));
   };
-  handleShow = () => {
-    this.setState((prevState) => ({ show: true }));
+  handleShowModal = () => {
+    this.setState(() => ({ showModal: true }));
   };
 
   render() {
@@ -40,19 +38,19 @@ class Header extends Component {
           <div className="col">
             <button
               className="btn btn-secondary float-right"
-              onClick={this.handleShow}
+              onClick={this.handleShowModal}
             >
               Add New Item
             </button>
           </div>
         </div>
 
-        <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal show={this.state.showModal} onHide={this.handleCloseModal}>
           <Modal.Header closeButton>
             <Modal.Title>Add a New Item</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <form  onSubmit={this.handleAddOption}>
+            <form onSubmit={this.handleAddOption}>
               <input
                 type="text"
                 name="itemfield"
@@ -72,7 +70,7 @@ class Header extends Component {
               <Button
                 variant="primary"
                 type="submit"
-                onClick={this.handleClose}
+                onClick={this.handleCloseModal}
               >
                 Add Item
               </Button>
@@ -83,4 +81,5 @@ class Header extends Component {
     );
   }
 }
-export default Header;
+
+export default connect()(Header);

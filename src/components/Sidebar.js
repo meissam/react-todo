@@ -1,43 +1,52 @@
 import React from "react";
+import {connect} from "react-redux";
+import {Alert } from 'react-bootstrap'
+import { addFilterTag, removeFilterTag } from "../actions/filterTags";
+import getAllTags from '../selectors/allTags';
+
 
 const Sidebar = (props) => {
   const {
-    tags,
-    handleAddFilterTag,
-    handleRemoveFilterTag,
-    activeFilters,
+    notes,
+    filterTags,
   } = props;
+
+
   return (
     <>
       <div id="tags">
-        {tags.length && (
-          <h3>
-            All Tags
-            <hr />
-          </h3>
-        )}
+        {getAllTags(notes).length > 0 ? (<h3>All Tags<hr /></h3>) : (<Alert variant='warning'>No Tag</Alert>)  }
 
-        {tags.map((tag, index) => (
-          <li
-            className={activeFilters.includes(tag) ? "selected" : null}
-            key={index}
-            onClick={(e) => handleAddFilterTag(tag)}
-          >
-            {tag}
+        { 
+         getAllTags(notes).map((tag, index) => (
+           <li
+             className={filterTags.includes(tag) ? "selected" : null}
+             key={index}
+             onClick={(e) => props.dispatch(addFilterTag(tag))}
+           >
+             {tag}
 
-            <button
-              className="btn"
-              onClick={(e) => {
-                e.stopPropagation();
-                handleRemoveFilterTag(tag);
-              }}
-            >
-              <i className="icon-x"></i>
-            </button>
-          </li>
-        ))}
+             <button
+               className="btn"
+               onClick={(e) => {
+                 e.stopPropagation();
+                 props.dispatch(removeFilterTag(tag));
+               }}
+             >
+               <i className="icon-x"></i>
+             </button>
+           </li>
+         ))
+        
+        } 
       </div>
     </>
   );
 };
-export default Sidebar;
+
+
+const mapStateToProps = (state) =>({
+  ...state
+})
+
+export default connect(mapStateToProps)(Sidebar);
