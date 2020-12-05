@@ -21,3 +21,20 @@ body {
   color: #999;
   text-decoration: line-through;
 }
+
+
+
+#tags li {
+  cursor: pointer;
+  list-style: none;
+  padding: 5px 0;
+}
+
+#tags li button{
+  display: none;
+}
+
+#tags li.selected button{
+  display: block;
+  float: right;
+}

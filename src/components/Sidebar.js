@@ -1,21 +1,40 @@
 import React from "react";
 
 const Sidebar = (props) => {
-  const { tags, handleAddFilterTag, handleRemoveFilterTag, activeFilters } = props;
+  const {
+    tags,
+    handleAddFilterTag,
+    handleRemoveFilterTag,
+    activeFilters,
+  } = props;
   return (
     <>
       <div id="tags">
-        {tags.map((tag, index) => (
+        {tags.length && (
+          <h3>
+            All Tags
+            <hr />
+          </h3>
+        )}
 
-          <li className={ activeFilters.includes(tag) ? "selected" : null } key={index} onClick={e => handleAddFilterTag(tag)}>
-            
+        {tags.map((tag, index) => (
+          <li
+            className={activeFilters.includes(tag) ? "selected" : null}
+            key={index}
+            onClick={(e) => handleAddFilterTag(tag)}
+          >
             {tag}
-           
-            <button onClick={e => handleRemoveFilterTag(tag)}>
+
+            <button
+              className="btn"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleRemoveFilterTag(tag);
+              }}
+            >
               <i className="icon-x"></i>
             </button>
           </li>
-
         ))}
       </div>
     </>

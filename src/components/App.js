@@ -7,6 +7,7 @@ import Sidebar from "./Sidebar";
 
 import "../assets/css/styles.css";
 
+
 class App extends Component {
   state = {
     error: null,
@@ -22,12 +23,13 @@ class App extends Component {
   };
 
   handleAddFilterTag = (selectedTag) => {
+    let newTag = selectedTag.trim();
     let filterTags = this.state.filterTags;
-    let selectedTagIndex = filterTags.indexOf(selectedTag);
+    let selectedTagIndex = filterTags.indexOf(newTag);
 
     if (selectedTagIndex === -1) {
       this.setState((prevState) => ({
-        filterTags: [...prevState.filterTags, selectedTag],
+        filterTags: [...prevState.filterTags, newTag],
       }));
     }
   };
@@ -83,7 +85,6 @@ class App extends Component {
     }
   }
   componentWillUnmount() {
-    console.log('componentWillUnmount');
   }
 
 
